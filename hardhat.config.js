@@ -1,17 +1,27 @@
 require("@nomiclabs/hardhat-waffle");
+const dotenv = require("dotenv");
 
-const projectId = "5fceda582a1a49909721207f3a913237"
+dotenv.config();
+
+
 module.exports = {
-
-networks: {
-  hardhat: {
-    chainId: 1337
+  defaultNetwork: "hardhat",
+  networks: {
+    hardhat: {
+      chainId: 1337
+    },
+    mumbai: {
+      url: "https://polygon-mumbai.g.alchemy.com/v2/wVpJCKMu1ACtJj_QnCE4ZF8LrorKMHH3",
+      accounts: [process.env.REACT_APP_ETHERSCAN_KEY]
+    },
   },
-  rinkeby: {
-    url: `https://rinkeby.infura.io/v3/${projectId}`,
-    accounts: [process.env.REACT_APP_PRIVATE_KEY],
-  },
-
-},
-  solidity: "0.8.4",
+  solidity: {
+    version: "0.8.4",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200
+      }
+    }
+  }
 };
